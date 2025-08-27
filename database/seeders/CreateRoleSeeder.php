@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class CreateRoleSeeder extends Seeder
 {
@@ -16,19 +17,16 @@ class CreateRoleSeeder extends Seeder
         DB::table('roles')->insert([
             [
                 'name' => 'superadmin',
-                'description' => 'Super Administrator with full access',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'name' => 'admin',
-                'description' => 'Administrator with limited access',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
                 'name' => 'user',
-                'description' => 'Regular user with standard access',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

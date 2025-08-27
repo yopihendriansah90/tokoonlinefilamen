@@ -9,7 +9,9 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Select;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Str;
-
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 
 class ProductForm
 {
@@ -17,19 +19,30 @@ class ProductForm
     {
         return $schema
             ->components([
+
                 Select::make('category_id')
                     ->label('Category')
                     ->relationship('category', 'name')
+                    ->createOptionForm([
+                        TextInput::make('name')
+                            ->reactive()
+                    ])
                     ->required()
                     ->searchable()
                     ->preload()
-                    ->placeholder('Select a category')
-              ,
+                    ->placeholder('Select a category'),
                 TextInput::make('name')
                     ->required(),
-                Textarea::make('description')
+                RichEditor::make('description')
                     ->default(null)
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
+                    ->toolbarButtons([
+                        ['bold', 'italic', 'underline', 'strike', 'subscript', 'superscript', 'link'],
+                        ['h2', 'h3', 'alignStart', 'alignCenter', 'alignEnd'],
+                        ['blockquote', 'codeBlock', 'bulletList', 'orderedList'],
+                        ['table'], // The `customBlocks` and `mergeTags` tools are also added here if those features are used.
+                        ['undo', 'redo'],
+                    ]),
                 TextInput::make('price')
                     ->required()
                     ->numeric()
@@ -39,7 +52,19 @@ class ProductForm
                     ->numeric()
                     ->default(0),
                 Toggle::make('is_active')
-                    ->required(),
+                    ->required()
+                    ->label('Is Active')
+                    ->default(true),
+
+                // upload gambar dengan spatie media library
+                SpatieMediaLibraryFileUpload::make('images')
+                    ->collection('product_images')
+                    ->multiple()
+                    // ->enableReordering()
+                    ->imageEditor()
+                    ->columnSpanFull(),
+
+
             ]);
     }
 }

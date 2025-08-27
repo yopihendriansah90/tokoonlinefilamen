@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class CreateUserSeeder extends Seeder
 {
@@ -16,12 +18,20 @@ class CreateUserSeeder extends Seeder
 DB::table('users')->insert([
             [
                 // crate user with role refers to role id 1 (superadmin)
-                 
-
-
                 'role_id' => 1,
                 'name' => 'Super Admin',
                 'email' => 'superadmin@mail.com',
+                'password' => bcrypt('password'),
+                'email_verified_at' => now(),
+                'remember_token' => \Illuminate\Support\Str::random(10),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+                        [
+                // crate user with role refers to role id 1 (superadmin)
+                'role_id' => 2,
+                'name' => 'Admin',
+                'email' => 'admin@mail.com',
                 'password' => bcrypt('password'),
                 'email_verified_at' => now(),
                 'remember_token' => \Illuminate\Support\Str::random(10),

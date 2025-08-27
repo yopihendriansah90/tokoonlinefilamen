@@ -24,11 +24,14 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
+use UnitEnum;
+
 
 class CategoryResource extends Resource
 {
     protected static ?string $model = Category::class;
-
+    protected static string | UnitEnum | null $navigationGroup = 'Store';
+    protected static ?int $navigationSort = 1;
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     public static function form(Schema $schema): Schema
